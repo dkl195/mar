@@ -1,0 +1,228 @@
+/* ---- STYLIST PAGE LAYOUT ---- */
+.stylist-page {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 70px;
+}
+.stylist-sidebar {
+  width: 420px;
+  flex-shrink: 0;
+  background: var(--bg-2);
+  border-right: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  overflow-y: auto;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+}
+.stylist-sidebar__header { margin-bottom: 2rem; }
+.stylist-sidebar__header h2 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem; font-weight: 300;
+  line-height: 1.15; margin: 0.5rem 0 0.75rem;
+}
+.stylist-sidebar__header h2 em { font-style: italic; color: var(--gold); }
+.stylist-sidebar__header p { font-size: 0.85rem; color: var(--text-3); line-height: 1.7; }
+
+/* STEPS INDICATOR */
+.stylist-steps {
+  display: flex; gap: 0.5rem; margin-bottom: 2rem;
+}
+.step {
+  flex: 1; padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-3);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.step span { display: block; font-size: 1rem; font-family: var(--font-serif); color: var(--border); margin-bottom: 2px; transition: var(--transition); }
+.step--active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+.step--active span { color: var(--gold); }
+.step--done { border-color: var(--success); color: var(--success); }
+.step--done span { color: var(--success); }
+
+/* INPUTS */
+.stylist-inputs { display: flex; flex-direction: column; gap: 0; }
+.step-panel { display: flex; flex-direction: column; gap: 1.25rem; }
+.step-panel.hidden { display: none; }
+.input-row { display: flex; gap: 1rem; }
+.input-row .input-group { flex: 1; }
+.input-hint { font-size: 0.72rem; color: var(--gold); margin-top: 0.25rem; }
+
+/* RADIO GROUP */
+.radio-group { display: flex; gap: 0.75rem; }
+.radio-option {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  gap: 0.4rem; padding: 0.65rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: var(--transition);
+}
+.radio-option:has(input:checked) { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+.radio-option input { display: none; }
+
+/* SKIN PICKER */
+.skin-picker { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.25rem; }
+
+/* SHAPE PICKER */
+.shape-picker, .style-picker {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+}
+.shape-btn, .style-btn {
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.75rem; font-weight: 500;
+  color: var(--text-2);
+  transition: var(--transition);
+}
+.shape-btn:hover, .style-btn:hover,
+.shape-btn.active, .style-btn.active {
+  border-color: var(--gold); color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+
+/* BUDGET SLIDER */
+.budget-slider { display: flex; flex-direction: column; gap: 0.5rem; }
+.budget-slider input[type="range"] {
+  width: 100%; accent-color: var(--gold);
+  border: none; background: transparent; padding: 0;
+}
+.budget-labels { display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--text-3); }
+.budget-labels strong { color: var(--gold); font-family: var(--font-serif); font-size: 0.95rem; }
+
+/* STEP ACTIONS */
+.step-actions { display: flex; gap: 0.75rem; }
+.step-prev {
+  padding: 0.85rem 1.4rem;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--text-2);
+  letter-spacing: 0.08em;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.step-prev:hover { border-color: var(--gold); color: var(--gold); }
+.step-actions .btn-primary { flex: 1; justify-content: center; }
+
+/* RESULTS */
+.stylist-results {
+  flex: 1;
+  padding: 3rem 2.5rem;
+  background: var(--bg);
+  overflow-y: auto;
+}
+.results-empty {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 60vh; text-align: center; gap: 1rem;
+}
+.results-empty__icon {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+  border: 1px solid rgba(201,168,76,0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(201,168,76,0.4); margin-bottom: 0.5rem;
+}
+.results-empty h3 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400; }
+.results-empty p { font-size: 0.875rem; color: var(--text-3); max-width: 320px; line-height: 1.8; }
+
+.results-content { display: flex; flex-direction: column; gap: 2.5rem; }
+.results-header { text-align: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.results-header__size-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--dark);
+  padding: 0.5rem 1.5rem; border-radius: 100px;
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.results-header h3 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 400; margin-bottom: 0.4rem; }
+.results-header p { font-size: 0.875rem; color: var(--text-3); }
+
+.outfits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.outfit-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.outfit-card:hover, .outfit-card.selected {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-4px);
+}
+.outfit-card__img {
+  height: 200px;
+  display: flex; align-items: flex-end;
+  padding: 1rem;
+  position: relative;
+}
+.outfit-card__style-tag {
+  position: absolute; top: 0.75rem; left: 0.75rem;
+  background: rgba(0,0,0,0.6);
+  color: var(--gold-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em;
+}
+.outfit-card__info { padding: 1rem; }
+.outfit-card__info h4 { font-family: var(--font-serif); font-size: 1rem; margin-bottom: 0.35rem; }
+.outfit-card__info p { font-size: 0.75rem; color: var(--text-3); }
+.outfit-card__price { margin-top: 0.6rem; font-size: 0.9rem; color: var(--gold); font-family: var(--font-serif); }
+
+.color-suggestions { display: flex; flex-direction: column; gap: 1rem; }
+.color-suggestion-row { display: flex; align-items: center; gap: 1rem; }
+.color-swatch {
+  width: 48px; height: 48px; border-radius: 50%;
+  flex-shrink: 0; box-shadow: var(--shadow);
+}
+.color-suggestion-row div { flex: 1; }
+.color-suggestion-row strong { font-size: 0.875rem; display: block; margin-bottom: 0.2rem; }
+.color-suggestion-row span { font-size: 0.75rem; color: var(--text-3); }
+
+.hairstyle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.hairstyle-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.hairstyle-card:hover { border-color: var(--gold); }
+.hairstyle-card__icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.hairstyle-card h4 { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem; }
+.hairstyle-card p { font-size: 0.7rem; color: var(--text-3); }
+
+.result-section h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem; font-weight: 400;
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.result-section h3::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+@media (max-width: 1024px) {
+  .stylist-page { flex-direction: column; }
+  .stylist-sidebar { width: 100%; position: static; height: auto; }
+  .outfits-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .outfits-grid { grid-template-columns: 1fr; }
+  .hairstyle-grid { grid-template-columns: 1fr 1fr; }
+}

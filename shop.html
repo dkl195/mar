@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bộ Sưu Tập — LUXE AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/shop.css" />
+</head>
+<body>
+<div class="loader" id="loader"><div class="loader__ring"></div><span class="loader__text">LUXE AI</span></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav__logo"><a href="index.html">LUXE <span>AI</span></a></div>
+  <ul class="nav__menu" id="navMenu">
+    <li><a href="index.html" class="nav__link">Trang Chủ</a></li>
+    <li><a href="stylist.html" class="nav__link">AI Stylist</a></li>
+    <li><a href="tryon.html" class="nav__link">Try-On</a></li>
+    <li><a href="shop.html" class="nav__link">Bộ Sưu Tập</a></li>
+    <li><a href="dashboard.html" class="nav__link">Dashboard</a></li>
+  </ul>
+  <div class="nav__actions">
+    <button class="btn-icon" id="themeToggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg></button>
+    <button class="nav__hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="shop-page">
+  <!-- SIDEBAR FILTERS -->
+  <aside class="shop-sidebar">
+    <h3>Bộ Lọc</h3>
+    <div class="filter-section">
+      <h4>AI Search</h4>
+      <div class="ai-search-mini">
+        <input type="text" id="shopSearch" placeholder="Mô tả điều bạn tìm..." />
+        <button id="shopSearchBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <h4>Danh Mục</h4>
+      <div class="filter-list" id="catFilter">
+        <label><input type="checkbox" value="all" checked /> Tất cả</label>
+        <label><input type="checkbox" value="elegant" /> Elegant</label>
+        <label><input type="checkbox" value="formal" /> Formal</label>
+        <label><input type="checkbox" value="casual" /> Casual</label>
+        <label><input type="checkbox" value="streetwear" /> Streetwear</label>
+        <label><input type="checkbox" value="romantic" /> Romantic</label>
+      </div>
+    </div>
+    <div class="filter-section">
+      <h4>Khoảng Giá</h4>
+      <div class="price-range">
+        <input type="range" id="priceRange" min="0" max="10000000" step="100000" value="10000000" />
+        <div class="price-range__labels">
+          <span>0₫</span><strong id="priceMax">10.000.000 ₫</strong>
+        </div>
+      </div>
+    </div>
+    <div class="filter-section">
+      <h4>Size</h4>
+      <div class="size-picker">
+        <button class="size-opt active" data-size="all">Tất cả</button>
+        <button class="size-opt" data-size="XS">XS</button>
+        <button class="size-opt" data-size="S">S</button>
+        <button class="size-opt" data-size="M">M</button>
+        <button class="size-opt" data-size="L">L</button>
+        <button class="size-opt" data-size="XL">XL</button>
+        <button class="size-opt" data-size="XXL">XXL</button>
+      </div>
+    </div>
+    <button class="btn-primary btn-full" id="applyFilter">Áp Dụng Bộ Lọc</button>
+    <a href="stylist.html" class="ai-stylist-cta">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Để AI chọn giúp bạn
+    </a>
+  </aside>
+
+  <!-- MAIN SHOP -->
+  <div class="shop-main">
+    <div class="shop-header">
+      <div>
+        <h2>Bộ Sưu Tập</h2>
+        <span id="shopCount">Đang tải...</span>
+      </div>
+      <div class="shop-header__sort">
+        <select id="sortSelect">
+          <option value="default">Sắp xếp: Mặc định</option>
+          <option value="price-asc">Giá tăng dần</option>
+          <option value="price-desc">Giá giảm dần</option>
+          <option value="name">Tên A-Z</option>
+          <option value="new">Mới nhất</option>
+        </select>
+        <button class="view-toggle active" data-view="grid" id="viewGrid">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-toggle" data-view="list" id="viewList">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="products-grid" id="shopGrid"></div>
+  </div>
+</div>
+
+<div class="chatbot" id="chatbot">
+  <div class="chatbot__header">
+    <div class="chatbot__avatar">AI</div>
+    <div><strong>LUXE AI Assistant</strong><span class="chatbot__status">● Đang hoạt động</span></div>
+    <button class="chatbot__close" id="closeChatbot">✕</button>
+  </div>
+  <div class="chatbot__messages" id="chatMessages">
+    <div class="chat-msg chat-msg--ai"><span>Chào bạn! Tôi có thể giúp tìm trang phục phù hợp nhất. Bạn cần gì? 😊</span></div>
+  </div>
+  <div class="chatbot__input">
+    <input type="text" id="chatInput" placeholder="Nhập tin nhắn..." />
+    <button id="sendChat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg></button>
+  </div>
+</div>
+<button class="chatbot-trigger" id="chatbotTrigger">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<script src="js/main.js"></script>
+<script src="js/shop.js"></script>
+</body>
+</html>

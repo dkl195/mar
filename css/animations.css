@@ -1,0 +1,179 @@
+/* ============================================================
+   LUXE AI — Animations
+   ============================================================ */
+
+/* ---- KEYFRAMES ---- */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.2; }
+}
+
+@keyframes float-1 {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(0deg); }
+}
+@keyframes float-2 {
+  0%, 100% { transform: translateY(0px) rotate(2deg); }
+  50% { transform: translateY(-10px) rotate(0deg); }
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---- REVEAL ON SCROLL ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.visible:nth-child(2) { transition-delay: 0.1s; }
+.reveal.visible:nth-child(3) { transition-delay: 0.2s; }
+.reveal.visible:nth-child(4) { transition-delay: 0.3s; }
+.reveal.visible:nth-child(5) { transition-delay: 0.4s; }
+
+/* ---- SKELETON LOADING ---- */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- PARTICLE ---- */
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: rgba(201,168,76,0.4);
+  border-radius: 50%;
+  animation: particle-float linear infinite;
+  pointer-events: none;
+}
+@keyframes particle-float {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* ---- GOLD SHIMMER EFFECT ---- */
+.gold-shimmer {
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold), var(--gold-light), var(--gold-dark));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ---- HOVER GLOW ---- */
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 24px rgba(201,168,76,0.3), 0 8px 40px rgba(0,0,0,0.2);
+}
+
+/* ---- RIPPLE EFFECT ---- */
+.ripple {
+  position: relative; overflow: hidden;
+}
+.ripple::after {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.ripple:active::after {
+  inset: 0;
+  transform: scale(1);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* ---- PAGE TRANSITION ---- */
+.page-transition {
+  animation: fadeIn 0.4s ease both;
+}
+
+/* ---- LOADING DOTS ---- */
+.loading-dots {
+  display: inline-flex; gap: 4px;
+}
+.loading-dots span {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: dot-bounce 0.8s ease-in-out infinite alternate;
+}
+.loading-dots span:nth-child(2) { animation-delay: 0.15s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dot-bounce {
+  from { transform: translateY(0); opacity: 0.4; }
+  to { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ---- TOAST NOTIFICATION ---- */
+.toast {
+  position: fixed; bottom: 8rem; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.82rem;
+  box-shadow: var(--shadow);
+  z-index: 9000;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast--success { border-color: var(--success); color: var(--success); }
+.toast--gold { border-color: var(--gold); color: var(--gold); }
