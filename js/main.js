@@ -56,11 +56,21 @@ if (hamburger && navMenu) {
     const isOpen = navMenu.classList.contains('open');
     hamburger.setAttribute('aria-expanded', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
+    // animate hamburger to X
+    const spans = hamburger.querySelectorAll('span');
+    if (isOpen) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
   });
   navMenu.querySelectorAll('.nav__link').forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('open');
       document.body.style.overflow = '';
+      hamburger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
     });
   });
 }
@@ -338,3 +348,23 @@ window.addEventListener('scroll', () => {
     link.classList.toggle('active', link.getAttribute('href') === '#' + current);
   });
 }, { passive: true });
+
+// ---- PAGE TRANSITION LINKS ----
+document.querySelectorAll('a[href$=".html"]').forEach(link => {
+  if (link.hostname === window.location.hostname) {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('javascript')) return;
+      e.preventDefault();
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.25s ease';
+      setTimeout(() => window.location.href = href, 250);
+    });
+  }
+});
+
+// ---- INIT THEME ----
+(function() {
+  const saved = localStorage.getItem('luxe-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+})();

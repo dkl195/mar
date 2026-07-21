@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Try-On 3D — LUXE AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/tryon.css" />
+</head>
+<body>
+<div class="loader" id="loader"><div class="loader__ring"></div><span class="loader__text">LUXE AI</span></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav__logo"><a href="index.html">LUXE <span>AI</span></a></div>
+  <ul class="nav__menu" id="navMenu">
+    <li><a href="index.html" class="nav__link">Trang Chủ</a></li>
+    <li><a href="stylist.html" class="nav__link">AI Stylist</a></li>
+    <li><a href="tryon.html" class="nav__link">Try-On</a></li>
+    <li><a href="shop.html" class="nav__link">Bộ Sưu Tập</a></li>
+  </ul>
+  <div class="nav__actions">
+    <button class="btn-icon" id="themeToggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg></button>
+    <button class="nav__hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="tryon-page">
+
+  <!-- LEFT PANEL: UPLOAD + OUTFIT SELECT -->
+  <aside class="tryon-panel">
+    <div class="tryon-panel__header">
+      <span class="section__tag">✦ AI Virtual Try-On</span>
+      <h2>Thử Đồ Ảo<br/><em>3D Thực Tế</em></h2>
+    </div>
+
+    <!-- STEP 1: UPLOAD -->
+    <div class="tryon-section">
+      <div class="tryon-step-label"><span>01</span> Tải Ảnh Của Bạn</div>
+      <div class="upload-zone tryon-upload" id="tryonUserUpload">
+        <div class="tryon-preview" id="tryonPreview">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <p>Kéo thả hoặc <span>chọn ảnh</span></p>
+          <small>JPG · PNG · WEBP · Tối đa 5MB</small>
+        </div>
+        <input type="file" accept="image/*" id="tryonUserInput" hidden />
+      </div>
+      <div class="tryon-requirements">
+        <div class="req-item req-item--ok">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+          Ảnh toàn thân hoặc nửa người
+        </div>
+        <div class="req-item req-item--ok">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+          Nền đơn giản, đủ ánh sáng
+        </div>
+        <div class="req-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Tránh ảnh mờ hoặc góc lệch nhiều
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: SELECT OUTFIT -->
+    <div class="tryon-section">
+      <div class="tryon-step-label"><span>02</span> Chọn Trang Phục</div>
+      <div class="outfit-scroll" id="outfitScroll">
+        <div class="outfit-thumb active" data-outfit="0" style="background:linear-gradient(145deg,#1a0a2e,#3d1a5e);">
+          <span>Đầm Velvet</span>
+        </div>
+        <div class="outfit-thumb" data-outfit="1" style="background:linear-gradient(145deg,#0d1a2e,#1e3a5f);">
+          <span>Vest Premium</span>
+        </div>
+        <div class="outfit-thumb" data-outfit="2" style="background:linear-gradient(145deg,#2e1a0a,#5e3d1a);">
+          <span>Set Linen</span>
+        </div>
+        <div class="outfit-thumb" data-outfit="3" style="background:linear-gradient(145deg,#0a0a0a,#2a2a2a);">
+          <span>Jacket</span>
+        </div>
+        <div class="outfit-thumb" data-outfit="4" style="background:linear-gradient(145deg,#ffe0e6,#ffb6c1);">
+          <span>Váy Hoa</span>
+        </div>
+        <div class="outfit-thumb" data-outfit="5" style="background:linear-gradient(145deg,#1a2a1a,#3a5a3a);">
+          <span>Jumpsuit</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: COLOR -->
+    <div class="tryon-section">
+      <div class="tryon-step-label"><span>03</span> Chọn Màu Sắc</div>
+      <div class="color-palette" id="colorPalette">
+        <button class="palette-btn active" data-color="#1a0a2e" style="background:#1a0a2e;" title="Tím đêm"></button>
+        <button class="palette-btn" data-color="#8B0000" style="background:#8B0000;" title="Đỏ đậm"></button>
+        <button class="palette-btn" data-color="#1a2a1a" style="background:#1a2a1a;" title="Xanh rừng"></button>
+        <button class="palette-btn" data-color="#2c3e50" style="background:#2c3e50;" title="Xanh Navy"></button>
+        <button class="palette-btn" data-color="#c0392b" style="background:#c0392b;" title="Đỏ rực"></button>
+        <button class="palette-btn" data-color="#f5e6d3" style="background:#f5e6d3;border:1px solid #ddd;" title="Beige"></button>
+        <button class="palette-btn" data-color="#4a9e6e" style="background:#4a9e6e;" title="Mint"></button>
+        <button class="palette-btn" data-color="#9b59b6" style="background:#9b59b6;" title="Tím lavender"></button>
+      </div>
+    </div>
+
+    <!-- APPLY BUTTON -->
+    <button class="btn-primary btn-full btn-large" id="applyTryonBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Áp Dụng AI Try-On
+    </button>
+  </aside>
+
+  <!-- CENTER: CANVAS / RESULT -->
+  <main class="tryon-canvas" id="tryonCanvas">
+    <div class="tryon-canvas__empty" id="canvasEmpty">
+      <div class="tryon-canvas__icon">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.6">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21,15 16,10 5,21"/>
+        </svg>
+      </div>
+      <h3>Tải ảnh để bắt đầu thử đồ</h3>
+      <p>AI sẽ ghép trang phục lên ảnh của bạn<br/>và hiển thị từ 4 góc độ khác nhau</p>
+    </div>
+    <div class="tryon-canvas__result hidden" id="canvasResult">
+      <div class="tryon-canvas__processing" id="processingOverlay">
+        <div class="loader__ring"></div>
+        <p>AI đang xử lý ảnh...</p>
+      </div>
+      <div class="tryon-views" id="tryonViews">
+        <div class="tryon-view tryon-view--main" id="mainView">
+          <div class="tryon-view__placeholder" id="mainViewPlaceholder"></div>
+          <span class="tryon-view__label">Mặt Trước</span>
+        </div>
+        <div class="tryon-view-row">
+          <div class="tryon-view" id="view2">
+            <div class="tryon-view__placeholder" id="view2Placeholder"></div>
+            <span class="tryon-view__label">Mặt Sau</span>
+          </div>
+          <div class="tryon-view" id="view3">
+            <div class="tryon-view__placeholder" id="view3Placeholder"></div>
+            <span class="tryon-view__label">Bên Trái</span>
+          </div>
+          <div class="tryon-view" id="view4">
+            <div class="tryon-view__placeholder" id="view4Placeholder"></div>
+            <span class="tryon-view__label">Bên Phải</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CANVAS ACTIONS -->
+    <div class="tryon-canvas__actions" id="canvasActions" style="display:none;">
+      <button class="canvas-action-btn" id="saveResult">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Lưu Ảnh
+      </button>
+      <button class="canvas-action-btn" id="shareResult">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Chia Sẻ
+      </button>
+      <button class="canvas-action-btn canvas-action-btn--gold" id="buyOutfit">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Mua Ngay
+      </button>
+    </div>
+  </main>
+
+  <!-- RIGHT PANEL: INFO + AI TIPS -->
+  <aside class="tryon-info">
+    <div class="tryon-outfit-info" id="outfitInfo">
+      <div class="tryon-outfit-info__swatch" id="outfitSwatch" style="background:linear-gradient(145deg,#1a0a2e,#3d1a5e);"></div>
+      <h3 id="outfitName">Đầm Dạ Hội Velvet</h3>
+      <div class="tryon-outfit-info__price" id="outfitPrice">2.850.000 ₫</div>
+      <div class="tryon-outfit-info__tags">
+        <span class="tag tag--gold">Elegant</span>
+        <span class="tag tag--silver">Dạ hội</span>
+      </div>
+      <div class="tryon-size-guide">
+        <h4>Hướng Dẫn Size</h4>
+        <table class="size-table">
+          <thead><tr><th>Size</th><th>Ngực</th><th>Bụng</th><th>Hông</th></tr></thead>
+          <tbody>
+            <tr><td>S</td><td>80-84</td><td>64-68</td><td>88-92</td></tr>
+            <tr class="size-table__highlight"><td>M</td><td>84-88</td><td>68-72</td><td>92-96</td></tr>
+            <tr><td>L</td><td>88-92</td><td>72-76</td><td>96-100</td></tr>
+            <tr><td>XL</td><td>92-96</td><td>76-80</td><td>100-104</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="ai-tips">
+      <h4>✦ AI Tư Vấn Phối Đồ</h4>
+      <div class="ai-tip-list" id="aiTipList">
+        <div class="ai-tip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          Phối cùng giày cao gót nude để tôn dáng
+        </div>
+        <div class="ai-tip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          Túi clutch metallic gold tạo điểm nhấn sang trọng
+        </div>
+        <div class="ai-tip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          Tóc búi thấp hoặc xoã sóng lớn phù hợp nhất
+        </div>
+        <div class="ai-tip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          Tông trang điểm đỏ berry hoặc nude hồng đậm
+        </div>
+      </div>
+    </div>
+
+    <a href="shop.html" class="btn-primary btn-full" style="margin-top:1rem;">
+      Xem Thêm Sản Phẩm Tương Tự
+    </a>
+  </aside>
+
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/tryon.js"></script>
+</body>
+</html>
